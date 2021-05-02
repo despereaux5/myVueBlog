@@ -1,0 +1,9 @@
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**Mapper.xml
+server:
+  port: 8089
+markerhub:
+  jwt:
+    secret: f4e2e52034348f86b67cde581c0f9eb5 # 加密秘钥
+    expire: 604800 # 7天，单位秒
+    header: Authorization

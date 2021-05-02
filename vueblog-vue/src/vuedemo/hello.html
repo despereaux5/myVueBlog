@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
+    <script src="https://unpkg.com/vue@2.5.9/dist/vue.js"></script>
+</head>
+<div id="app" style="width: 100%;height: auto;font-size:20px;">
+    <p id="id1"></p>
+    <p id="id2"></p>
+</div>
+<script type="text/javascript">
+    var message = "Hello!"; // message1,属于window
+    var app = new Vue({
+        el:"#app",
+        data:{
+            message: "你好！" // message2,属于vue
+        },
+        created: function() {
+            console.log("created")
+            console.log(this) // Vue
+            this.showMessage1();    //this 1
+            this.showMessage2();   //this 2
+        },
+        methods:{
+            showMessage1:function(){
+                console.log("showMessage1")
+                console.log(this) // Vue
+                setTimeout(function() {
+                    console.log("setTimeout1")
+                    console.log(this) // window
+                    //this 3 普通函数和匿名函数，this指向window
+                    document.getElementById("id1").innerText = this.message;
+                }, 10)
+            },
+            showMessage2:function() {
+                console.log("showMessage2")
+                console.log(this) // Vue
+                setTimeout(() => {
+                    console.log("setTimeout2")
+                    console.log(this) // Vue
+                    //this 4 箭头函数是没有自己的this，在它内部使用的this是由它定义的宿主对象决定
+                    // 箭头函数宿主对象为vue实例，所以它里面使用的this指向vue实例
+                    document.getElementById("id2").innerText = this.message;
+                }, 10)
+            }
+        }
+    });
+</script>
+</html>
